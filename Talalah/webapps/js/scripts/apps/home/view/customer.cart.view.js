@@ -94,6 +94,7 @@ define(function(require, exports, module){
 		},
 		doCheckOut : function(e){
 			e.preventDefault();
+			customerCartController.checkOutAll(this);
 		},
 		doBackward : function(e){
 			e.preventDefault();
@@ -131,7 +132,7 @@ define(function(require, exports, module){
 			var mcId = data.product.merchant.mcId;
 			var id   = data.product.id;
 			var img	= data.product.img;
-			this.$el.find('img').attr('src',content+'/'+mcc+"/"+mcId+"/"+id+"/"+img);
+			this.$el.find('#img').attr('src',content+'/'+mcc+"/"+mcId+"/"+id+"/"+img);
 			return this.$el;
 		},
 		events : {
@@ -164,7 +165,7 @@ define(function(require, exports, module){
 			var mcId = data.product.merchant.mcId;
 			var id   = data.product.id;
 			var img	= data.product.img;
-			this.$el.find('img').attr('src',content+'/'+mcc+"/"+mcId+"/"+id+"/"+img);
+			this.$el.find('#img').attr('src',content+'/'+mcc+"/"+mcId+"/"+id+"/"+img);
 			return this.$el;
 		},
 		events : {
@@ -278,7 +279,8 @@ define(function(require, exports, module){
 		CartProductView			  : CartProductView,
 		ItemShippingProviderView  : ItemShippingProviderView,
 		ItemShippingProviderViews : ItemShippingProviderViews,
-		ProductItemDetailView	  : ProductItemDetailView
+		ProductItemDetailView	  : ProductItemDetailView,
+		ProductTravelDetailView	  : ProductTravelDetailView
 	};
 	
 });

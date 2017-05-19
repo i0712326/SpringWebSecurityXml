@@ -4,11 +4,12 @@
 define(function(require,exports,module){
 	var Backgrid = require('backgrid');
 	var View = require('cartView');
-	var PrdView =	require('productView');
+	var PrdView = require('productView');
 	var Model = require('model');
 	var init  = require('init');
 	
 	var talalah = init.init();
+	var content = talalah.com.client.app.page.content.merchant;
 	var max = talalah.com.client.app.page.max;
 	
 	var CartPage = function(id,cId){
@@ -49,12 +50,12 @@ define(function(require,exports,module){
 	}
 	
 	var CartProductPage = function(id,cId,pId,cpId){
-		var id 		= id;
-		var cId 	= cId;
-		var pId 	= pId;
-		var cpId 	= cpId;
+		var id 	 = id;
+		var cId  = cId;
+		var pId  = pId;
+		var cpId = cpId;
 		var that = this;
-		that.id = id;
+		that.id  = id;
 		this.render = function(){
 			var cartProduct = new Model.CartProduct({id:cpId});
 			var cartProductView = new View.CartProductView({model:cartProduct});
@@ -71,7 +72,7 @@ define(function(require,exports,module){
 					var mcId = merchant.mcId;
 					var id = data.product.id;
 					var img = data.product.img;
-					$ele.find('#prdImg').attr('src',"/Talalah/content/"+mcc+"/"+mcId+"/"+id+"/"+img);
+					$ele.find('#prdImg').attr('src', content+"/"+mcc+"/"+mcId+"/"+id+"/"+img);
 					if(mcc==='4722'){
 						var productTravelDetailView = new View.ProductTravelDetailView({model:item});
 						$ele.find('#product-detail').append(productTravelDetailView.render());
@@ -92,7 +93,7 @@ define(function(require,exports,module){
 							columns : activityColumns,
 							collection : activities
 						});
-						this.$el.find('#activitiesList').append(activitiesGrid.render().$el);
+						$ele.find('#activitiesList').append(activitiesGrid.render().$el);
 						activities.fetch({reset:true});
 					}
 					else{
@@ -143,6 +144,7 @@ define(function(require,exports,module){
 			});
 			
 			return $ele;
+			
 		}
 	}
 	

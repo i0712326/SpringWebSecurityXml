@@ -84,7 +84,6 @@ define(function(require, exports, module){
 		this.doChangePage = function(page, id, cId, that, CartProductViews){
 			var cartProducts = new Model.CartProducts();
 			var first = page*3;
-			
 			cartProducts.url = talalah.com.client.app.entity.customer.cartproduct.get+"?cId="+cId+"&first="+first+"&max="+max;
 			cartProducts.fetch({
 				success:function(items,resp,opts){
@@ -104,35 +103,73 @@ define(function(require, exports, module){
 		}
 		
 		this.doCheckOut = function(that){
-			
 			var data = that.model.toJSON();
 			var cId = data.cart.customer.id;
 			var cpId = data.id;
 			var csrf = $('input[name=_csrf]').val().trim();
 			var params = {_csrf:csrf, cId : cId, cpId : cpId };
 			var url = '/Talalah/order/travel/save';
+			
+			that.$el.find('#checkOutLoader').show();
+			
 			$.post(url,params,function(resp){
-				var customer = new Model.Customer({id:cId});
+				var id = resp.id;
+				var order = resp.order;
+				var product = resp.product;
+				var customer = new Model.Customer({id : cId});
 				customer.fetch({
-					success:function(item, resp, opt){
+					success : function(item, res, opt) {
+						that.$el.find('#checkOutLoader').hide();
 						var dat = item.toJSON();
 						var total = dat.cart.total;
-						var sum	  = dat.cart.sum;
+						var sum = dat.cart.sum;
 						$('#shopCartItems').text(total);
 						$('#cart-total').text(total);
 						$('.badge').text(total);
 						$('#cart-sum').text(sum);
-						
-						//pop up dialog
-						$('#MsgDialog').modal('toggle');
-						$('#MsgDialog').find('.alert-success').show();
-						
-						that.remove();
+						$('#notiModal').modal('show');
+						$('#notiModal').on('hidden.bs.modal', function () {
+							window.location.href="#Home/Customer/"+order.customer.id+"/History/"+order.id+"/"+product.id+"/"+id;
+						});
 					}
 				});
 				
 			});
 			
+		}
+		
+		this.checkOutAll = function(that){
+			var data = that.model.toJSON();
+			var id = data.id;
+			var cId = data.cart.id;
+			var csrf = $('input[name=_csrf]').val().trim();
+			var params = {_csrf:csrf, uId : id, cId : cId };
+			var url = '/Talalah/order/product/save';
+			that.$el.find('#checkOutLoader').show();
+			$.post(url,params,function(resp){
+				setTimeout(3000,function(){
+					that.$el.find('#checkOutLoader').hide();
+					that.$el.find('.glyphicon-ok').show();
+					var customer = new Model.Customer({id:id});
+					customer.fetch({
+						success:function(item, resp, opt){
+							var dat = item.toJSON();
+							var total = dat.num;
+							var sum	  = dat.total;
+							
+							setTimeout(function(){								
+								$('#shopCartItems').text(total);
+								$('#cart-total').text(total);
+								$('.badge').text(total);
+								$('#cart-sum').text(sum);
+								that.remove();
+							}, 3000);
+						}
+					});
+					
+				});
+				
+			});
 		}
 		
 		this.doDelete = function(that, CartProductViews){
@@ -163,6 +200,10 @@ define(function(require, exports, module){
 									$('#cart-total').text(total);
 									$('.badge').text(total);
 									$('#cart-sum').text(sum);
+									
+									if(total===0){
+										$('#empty-info').show();
+									}
 								}
 							});
 						}

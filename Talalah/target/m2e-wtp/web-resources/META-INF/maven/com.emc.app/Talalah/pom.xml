@@ -86,6 +86,7 @@
 	</dependency>
 	
 	<!-- hibernate -->
+	
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
@@ -122,6 +123,12 @@
 	    <groupId>com.fasterxml.jackson.jaxrs</groupId>
 	    <artifactId>jackson-jaxrs-json-provider</artifactId>
 	    <version>${jackson2.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-jaxrs</artifactId>
+		<version>2.2.1.GA</version>
 	</dependency>
 	
 	<!-- jstl for jsp page -->

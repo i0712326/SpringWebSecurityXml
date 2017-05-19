@@ -313,6 +313,7 @@ define(function(require, exports,module){
 					var product = that.model.toJSON();
 					product.type = "com.emc.app.entity.product.travel.Travel";
 					
+					that.$el.find('#addCartOk').hide();
 					// add qty to product cart
 					
 					var appStorage = window.sessionStorage;
@@ -329,14 +330,23 @@ define(function(require, exports,module){
 					var cpid = Math.floor(Math.random()*16777215).toString(16).toUpperCase();
 					var type = "com.emc.app.entity.customer.CartTravel";
 					var cartProduct = {id:cpid, qty:qty, price : price, cart:cart, product:product, type:type};
-					cartProducts.push(cartProduct); 
 					
-					var strLocalData = JSON.stringify(cartProducts);
-					var strCart = JSON.stringify(cart);
+					that.$el.find('#addCartLoader').show();
 					
-					appStorage.setItem('cartProducts',strLocalData);
-					appStorage.setItem('cart', JSON.stringify(cart));
-					$('#shopCartItems').text(cart.total);
+					setTimeout(function(){
+						that.$el.find('#addCartLoader').hide();
+						that.$el.find('#addCartOk').show();
+						cartProducts.push(cartProduct); 
+						var strLocalData = JSON.stringify(cartProducts);
+						var strCart = JSON.stringify(cart);
+						
+						appStorage.setItem('cartProducts',strLocalData);
+						appStorage.setItem('cart', JSON.stringify(cart));
+						
+						$('#shopCartItems').text(cart.total);
+						
+					},3000);
+					
 				},
 				deleteTravel : function(that){
 					var data = that.model.toJSON();

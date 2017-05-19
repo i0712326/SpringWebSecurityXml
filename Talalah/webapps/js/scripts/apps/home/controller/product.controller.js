@@ -322,7 +322,7 @@ define(function(require, exports,module){
 					var check = checkStart && checkEnd && checkAdult && checkChild;
 					
 					if(check===true){
-						var total = (oAdult+oChild)*price*days;
+						var total = oAdult*price + oChild*price*0.4;
 						setTimeout(function(){
 							that.$el.find('#total').text(total);
 							that.$el.find('#action').show();
@@ -341,6 +341,7 @@ define(function(require, exports,module){
 				},
 				
 				doAddCart : function(that) {
+					that.$el.find('#check').show();
 					var uId	= $('#custId').val().trim();
 					var customer = new Model.Customer({id:uId});
 					var product = that.model.toJSON();
@@ -358,6 +359,9 @@ define(function(require, exports,module){
 							var sum		= that.$el.find('#total').text().trim();
 							var cartTravelData = {type:"com.emc.app.entity.customer.CartTravel", days:days, cart:cart, product:product, start:oStart, end : oEnd, adult:oAdult,child :oChild, note:'',qty:total,price:sum};
 							
+							// show loader image
+							that.$el.find('#addCartLoader').show();
+							
 							var cartTravel = new Model.CartTravel();
 							cartTravel.urlRoot = talalah.com.client.app.entity.customer.cartTravel.save;
 							cartTravel.save(cartTravelData, {
@@ -365,6 +369,8 @@ define(function(require, exports,module){
 									var customer = new Model.Customer({id:uId});
 									customer.fetch({
 										success : function(item, resp, opt){
+											that.$el.find('#addCartLoader').hide();
+											that.$el.find('#addCartOk').show();
 											var data = item.toJSON();
 											var total = data.cart.total;
 											var sum	= data.cart.sum;
@@ -376,6 +382,10 @@ define(function(require, exports,module){
 											$('.alert-success').show();
 											$('#MsgDialog').modal('toggle');
 											
+										},
+										error: function(item, resp, opt){
+											that.$el.find('#addCartLoader').hide();
+											that.$el.find('#addCartError').show();
 										}
 									});
 									
@@ -384,6 +394,7 @@ define(function(require, exports,module){
 								},
 								error : function(item,resp,opt){
 									$('.alert-danger').show();
+									$('#MsgDialog').modal('toggle');
 								}
 							});
 						}
@@ -413,8 +424,15 @@ define(function(require, exports,module){
 							orderTravel.urlRoot = talalah.com.client.app.entity.order.orderTravel.save;
 							orderTravel.save(orderTravelData, {
 								success:function(item,resp,opt){
-									$('#MsgDialog1').modal('toggle');
+									var data = item.toJSON();
+									var id = data.id;
+									var order = data.order;
+									var product = data.product;
+									$('#MsgDialog1').modal('show');
 									$('#MsgDialog1').find('.alert-success').show();
+									$('#MsgDialog1').on('hidden.bs.modal', function () {
+										window.location.href="#Home/Customer/"+order.customer.id+"/History/"+order.id+"/"+product.id+"/"+id;
+									});
 								},
 								error : function(item,resp,opt){
 									$('#MsgDialog1').modal('toggle');

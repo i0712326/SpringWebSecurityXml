@@ -64,7 +64,8 @@ define(function(require,exports,module){
 				success:function(item,resp,opt){
 					var custCart = item.toJSON().cart;
 					var address = item.toJSON().address;
-					var total = cart.total;
+					var total = 0;
+					if( cart !== null && cart !== undefined ) total = cart.total;
 					var persistCartProduct = new PersistCartProduct();
 					if(total>0){
 						for(var i=0;i<total;i++){

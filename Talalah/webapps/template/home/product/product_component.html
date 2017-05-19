@@ -222,25 +222,40 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-lg-12" >
+				
     			<div class="col-xs-6 col-sm-6 col-lg-6">
+					
 					<div class="alert alert-warning" style="display:none;text-align:center;">
 						<strong> Not Available !!!!</strong>
 					</div>
+
 					<div style="display:none;" id="action">
 	    				<h3 title="Total" id="totalPrice">
 							Total : $ <span id="total"></span> USD
 						</h3>
 						<p class="space" style="text-align: left;">
+							<span id="addCartLoader" style="display:none;">
+								<img src="/Talalah/content/util/img/loader.gif">
+							</span>
+							<span id="addCartOk" style="display:none;">
+								<span class="glyphicon glyphicon-ok"></span>
+							</span>
+							<span id="addCartError" style="display:none;">
+								<span class="glyphicon glyphicon-remove"></span>
+							</span>
+
 					 		<button class="btn btn-default btn-sm" id="addCart">
 					 			Add to Cart	
 					 		</button> 
-					 		&nbsp;
-					 		<button class="btn btn-default btn-sm" id="buyNow">
+							&nbsp;
+							<button class="btn btn-default btn-sm" id="buyNow">
 					 			Buy Now
 					 		</button>
 						</p>
 					</div>
+					
 				</div>
+				
 				<div class="col-xs-6 col-sm-6 col-lg-6"  style="text-align:left;">
 					<div style="display: none;" id="checkLoader">
   						<p>
@@ -252,7 +267,9 @@
     					Check Availability
     				</button>
 				</div>
+				
     		</div>
+
 		</div>
 	</script>
 	

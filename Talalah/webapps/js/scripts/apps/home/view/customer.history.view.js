@@ -10,6 +10,7 @@ define(function(require, exports,module){
 	var Model   = require('model');
 	var init	= require('init');
 	var talalah = init.init();
+	var content = talalah.com.client.app.page.content.merchant;
 	var customerHistoryController = require('customer.history.controller');
 	var customerComponentTemp = require('text!historyTemp');
 	
@@ -63,7 +64,7 @@ define(function(require, exports,module){
 			var id	= data.product.id;
 			var img = data.product.img;
 			this.$el.html(this.template(data));
-			this.$el.find('img').attr('src','/Talalah/content/'+mcc+'/'+mcId+'/'+id+'/'+img);
+			this.$el.find('img').attr('src',content+'/'+mcc+'/'+mcId+'/'+id+'/'+img);
 			return this.$el;
 		},
 		events : {
@@ -85,7 +86,7 @@ define(function(require, exports,module){
 			var id	= data.product.id;
 			var img = data.product.img;
 			this.$el.html(this.template(data));
-			this.$el.find('img').attr('src','/Talalah/content/'+mcc+'/'+mcId+'/'+id+'/'+img);
+			this.$el.find('img').attr('src',content+'/'+mcc+'/'+mcId+'/'+id+'/'+img);
 			return this.$el;
 		},
 		events : {
@@ -138,14 +139,15 @@ define(function(require, exports,module){
 			if(data.product.merchant!==undefined){
 				var mcc = data.product.merchant.merchantCode.mcc;
 				var mcId = data.product.merchant.mcId;
+				var mcImg = data.product.merchant.img;
 				var id	= data.product.id;
 				var img = data.product.img;
 				var updateStatus = data.updateStatus;
 				if(updateStatus==='Y')
 					this.$el.find('#eval').hide();
-				this.$el.find('#img').attr('src','/Talalah/content/'+mcc+'/'+mcId+'/'+id+'/'+img);
-				this.$el.find('#productImg').attr('src','/Talalah/content/'+mcc+'/'+mcId+'/'+id+'/'+img);
-				this.$el.find('#merchantImg').attr('src','/Talalah/content/'+mcc+'/'+mcId+'/default.png');
+				this.$el.find('#img').attr('src',content+'/'+mcc+'/'+mcId+'/'+id+'/'+img);
+				this.$el.find('#productImg').attr('src',content+'/'+mcc+'/'+mcId+'/'+id+'/'+img);
+				this.$el.find('#merchantImg').attr('src',content+'/'+mcc+'/'+mcId+'/'+mcImg);
 				var mc = data.product.merchant;
 			}
 			return this.$el;

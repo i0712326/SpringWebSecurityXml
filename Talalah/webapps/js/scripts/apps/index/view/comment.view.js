@@ -10,6 +10,8 @@ define(function(require,exports,module){
 	var init		=	require('init');
 	var Model		=	require('model');
 	
+	var talalah		= 	init.init();
+	var content		=	talalah.com.client.app.page.content.user;
 	// template
 	
 	var commentTemp = require('text!productComponentTempl');
@@ -23,7 +25,7 @@ define(function(require,exports,module){
 			var id = data.customer.id;
 			var img	= data.customer.img;
 			this.$el.html(this.template(data));
-			this.$el.find('img').attr('src','/Talalah/content/user/customer/'+id+"/"+img);
+			this.$el.find('img').attr('src',content+'/'+id+"/"+img);
 			return this.$el;
 		}
 	});

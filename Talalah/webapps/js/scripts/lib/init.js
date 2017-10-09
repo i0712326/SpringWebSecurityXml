@@ -4,21 +4,21 @@
 define(function(require, exports, module){
 	
 	/* initiate global object */
+	var rootContent = 'http://localhost:8080/TalalahContents/content';
+	var max = 8;
 	
-	var user 		= require('/Talalah/js/scripts/lib/userUrl.js');
-	var customer 	= require('/Talalah/js/scripts/lib/customerUrl.js');
-	var item		= require('/Talalah/js/scripts/lib/itemProductUrl.js');
-	var merchant 	= require('/Talalah/js/scripts/lib/merchantUrl.js');
-	var order 		= require('/Talalah/js/scripts/lib/orderUrl.js');
-	var product 	= require('/Talalah/js/scripts/lib/productUrl.js');
-	var shipping 	= require('/Talalah/js/scripts/lib/shippingUrl.js');
-	var travel 		= require('/Talalah/js/scripts/lib/travelProductUrl.js');
+	var user 		= require('userUrl');
+	var customer 	= require('customerUrl');
+	var item		= require('itemProductUrl');
+	var merchant 	= require('merchantUrl');
+	var order 		= require('orderUrl');
+	var product 	= require('productUrl');
+	var shipping 	= require('shippingUrl');
+	var travel 		= require('travelProductUrl');
 	
 	var talalah = window.talalah||{};
 	
 	var InitContext = function(){
-		
-		
 		
 		this.getInitContext = function(){
 			
@@ -28,16 +28,16 @@ define(function(require, exports, module){
 			talalah.com.client = null || {};
 			talalah.com.client.app = null || {};
 			talalah.com.client.app.page = null || {};
-			talalah.com.client.app.page.max = 8;
+			talalah.com.client.app.page.max = max;
 			talalah.com.client.app.page.content = null || {};
-			talalah.com.client.app.page.content.user = 'http://localhost:8080/TalalahContents/content/user';;
-			talalah.com.client.app.page.content.merchant = 'http://localhost:8080/TalalahContents/content/merchant';
-			talalah.com.client.app.page.content.util = 'http://localhost:8080/TalalahContents/content/util';
+			talalah.com.client.app.page.content.user = rootContent+'/user';;
+			talalah.com.client.app.page.content.merchant = rootContent+'/merchant';
+			talalah.com.client.app.page.content.util = rootContent+'/util';
 			talalah.com.client.app.entity = null || {};
 			
-			// assignment data to the object
-			// user module
+			/* assignment data to the object */
 			
+			// user module
 			talalah.com.client.app.entity.user						= null || {};
 			talalah.com.client.app.entity.user.user					= user.User;
 			talalah.com.client.app.entity.user.role					= user.Role;
@@ -49,12 +49,14 @@ define(function(require, exports, module){
 			// customer module
 			talalah.com.client.app.entity.customer					= null || {};
 			talalah.com.client.app.entity.customer.customer			= customer.Customer;
+			talalah.com.client.app.entity.customer.customerExtend 	= customer.CustomerExtend;
 			talalah.com.client.app.entity.customer.cart				= customer.Cart;
 			talalah.com.client.app.entity.customer.cartproduct		= customer.CartProduct;
 			talalah.com.client.app.entity.customer.cartItem			= customer.CartProduct.CartItem;
 			talalah.com.client.app.entity.customer.cartTravel		= customer.CartProduct.CartTravel;
 			talalah.com.client.app.entity.customer.comment			= customer.Comment;
 			talalah.com.client.app.entity.customer.role				= customer.Role;
+			
 			// merchant module
 			talalah.com.client.app.entity.merchant					= null || {};
 			talalah.com.client.app.entity.merchant.merchant			= merchant.Merchant;

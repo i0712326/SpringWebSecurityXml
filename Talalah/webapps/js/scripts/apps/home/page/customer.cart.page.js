@@ -36,6 +36,7 @@ define(function(require,exports,module){
 								}
 								else{
 									$ele.find('#empty-info').show();
+									$ele.find('#checkOutAll').prop('disabled', true);
 								}
 								
 							},300);
@@ -99,11 +100,11 @@ define(function(require,exports,module){
 					else{
 						var productItemDetailView = new View.ProductItemDetailView({model:item});
 						$ele.find('#product-detail').append(productItemDetailView.render());
-						var pId = data.product.id;
+						var prdId = data.product.id;
 						var cpId = data.id;
 						var pvdId = data.shipping.itemShippingProvider.itemShippingProviderId.shippingProvider.id;
 						var itemShippingProviders = new Model.ItemShippingProviders();
-						itemShippingProviders.url = talalah.com.client.app.entity.product.item.itemShippingProvider.get+"/product?id="+pId;
+						itemShippingProviders.url = talalah.com.client.app.entity.product.item.itemShippingProvider.get+"/product?id="+prdId;
 						itemShippingProviders.fetch({
 							success: function(items, resp, opts){
 								var itemShippingProviderViews = new View.ItemShippingProviderViews({collection:items});

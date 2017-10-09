@@ -8,6 +8,7 @@ define(function(require,exports,module){
 		Backbone 	= require('backbone'),
 		Handlebars 	= require('handlebars'),
 		Backgrid	= require('backgrid'),
+		colorbox	= require('jquery.colorbox'),
 		init		= require('init'),
 		Model		= require('model'),
 		bootstrap	= require('bootstrap'),
@@ -401,8 +402,11 @@ define(function(require,exports,module){
 			var mcId 	= data.product.merchant.mcId;
 			var pId 	= data.product.id;
 			var img 	= data.picName;
+			var path	= contentMerchant+'/'+mcc+"/"+mcId+"/"+pId+"/"+pId+"/"+img;
 			this.$el.html(this.template(data));
-			this.$el.find('img').attr('src',contentMerchant+'/'+mcc+"/"+mcId+"/"+pId+"/"+pId+"/"+img);
+			this.$el.find('img').attr('src',path);
+			this.$el.find('a').attr('href',path);
+			this.$el.find('.group03').colorbox({rel:'group03', transition:"none", width:"75%", height:"75%"});
 			return this.$el;
 		}
 	});
@@ -475,7 +479,7 @@ define(function(require,exports,module){
 			var pId 	= data.id;
 			var img 	= data.img;
 			this.$el.html(this.template(data));
-			this.$el.find('img').attr('src',contentMerchant+'/'+mcc+"/"+mcId+"/"+pId+"/"+img);
+			this.$el.find('img').attr('src',contentMerchant+"/"+mcc+"/"+mcId+"/"+pId+"/"+img);
 			return this.$el;
 		}
 	});

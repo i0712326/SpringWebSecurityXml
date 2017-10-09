@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.emc.app</groupId>
   <artifactId>Talalah</artifactId>
@@ -6,7 +9,7 @@
   <packaging>war</packaging>
   
   <properties>
-  	<spring.version>3.2.18.RELEASE</spring.version>
+  	<spring.version>3.2.3.RELEASE</spring.version>
 	<spring.security.version>3.2.3.RELEASE</spring.security.version>
 	<jstl.version>1.2</jstl.version>
 	<jackson.version>1.9.13</jackson.version>
@@ -21,7 +24,7 @@
 	
 	<httpclient.version>4.3.6</httpclient.version>
 	
-	<maven-compiler-plugin>3.5.0</maven-compiler-plugin>
+	<maven-compiler-plugin>3.6.1</maven-compiler-plugin>
   	<maven-war-plugin>3.0.0</maven-war-plugin>
   	<jdk.version>1.8</jdk.version>
   	
@@ -180,6 +183,13 @@
 		<version>${httpclient.version}</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+	<dependency>
+	    <groupId>org.apache.tika</groupId>
+	    <artifactId>tika-core</artifactId>
+	    <version>1.13</version>
+	</dependency>
+	
   </dependencies>
   
   <build>
@@ -198,6 +208,7 @@
         <version>${maven-war-plugin}</version>
         <configuration>
           <warSourceDirectory>webapps</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
     </plugins>

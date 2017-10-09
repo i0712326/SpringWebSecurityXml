@@ -73,7 +73,7 @@ define(function(require, exports, module){
 			'click #search' 	: 'doSearch',
 			'click #editAddr' 	: 'doEditAddr',
 			'click #ok' 		: 'doUpdateAddr',
-			'click #checkOut'	: 'doCheckOut',
+			'click #checkOutAll': 'doCheckOut',
 			'click #backward'	: 'doBackward',
 			'click #forward'	: 'doForward'
 			
@@ -215,12 +215,17 @@ define(function(require, exports, module){
 			return this.$el;
 		},
 		events:{
-			'click #loadmore'	: 'doLoadMore'
+			'click #loadmore'	: 'doLoadMore',
+			'click #checkout'	: 'doCheckOut'
 		},
 		doLoadMore : function(e){
 			e.preventDefault();
 			customerCartController.doLoadMoreComments(this);
 			this.page++;
+		},
+		doCheckOut : function(e){
+			e.preventDefault();
+			customerCartController.checkOutProduct(this);
 		}
 	});
 	

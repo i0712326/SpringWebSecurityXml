@@ -1,7 +1,7 @@
 /**
  * 
  */
-define(['/Talalah/js/scripts/lib/prototypeUrl.js'], function(PrototypeUrl){
+define(['prototypeUrl'], function(PrototypeUrl){
 /* item module */
 	
 	var $Item = function(){

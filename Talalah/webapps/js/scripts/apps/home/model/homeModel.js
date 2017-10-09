@@ -111,7 +111,7 @@ define(function(require, exports, module){
 	});
 	
 	var $Customer = Backbone.Model.extend({
-		urlRoot : talalah.com.client.app.entity.customer.customer.get
+		urlRoot : talalah.com.client.app.entity.customer.customerExtend.get
 	});
 	
 	

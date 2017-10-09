@@ -13,6 +13,7 @@
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet"></link>
 <link href="css/index_style.css" rel="stylesheet"></link>
+<link href="css/colorbox.css" rel="stylesheet"></link>
 </head>
 <body>
 <!-- Navigation -->

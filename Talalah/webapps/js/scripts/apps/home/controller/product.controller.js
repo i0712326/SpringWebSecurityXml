@@ -360,6 +360,7 @@ define(function(require, exports,module){
 							var cartTravelData = {type:"com.emc.app.entity.customer.CartTravel", days:days, cart:cart, product:product, start:oStart, end : oEnd, adult:oAdult,child :oChild, note:'',qty:total,price:sum};
 							
 							// show loader image
+							that.$el.find('#addCartOk').hide();
 							that.$el.find('#addCartLoader').show();
 							
 							var cartTravel = new Model.CartTravel();

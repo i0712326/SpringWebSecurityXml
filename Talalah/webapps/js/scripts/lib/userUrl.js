@@ -1,7 +1,9 @@
 /**
  * 
  */
-define(['/Talalah/js/scripts/lib/prototypeUrl.js'], function(PrototypeUrl){
+define(function(require,exports,module){
+	
+	var PrototypeUrl = require('prototypeUrl');
 	
 	var $User = function(){
 		var that = new PrototypeUrl('/user');

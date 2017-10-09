@@ -19,10 +19,12 @@
 <spring:url value="../" var="path"></spring:url>
 <spring:url value="${path}css/bootstrap.min.css" var="bootstrapCss"></spring:url>
 <spring:url value="${path}/css/bootstrap-datetimepicker.min.css" var="bootstrapDatepickerCss"></spring:url>
+<spring:url value="${path}/css/colorbox.css" var="colorboxCss"></spring:url>
 <spring:url value="${path}/css/home_style.css" var="homeStyleCss"></spring:url>
 <link rel="home icon" href="${path}/css/img/tm/tm16x16.ico" type="image/ico"></link>
 <link href="${bootstrapCss}" rel="stylesheet"></link>
 <link href="${bootstrapDatepickerCss}" rel="stylesheet"></link>
+<link href="${colorboxCss}" rel="stylesheet"></link>
 <link href="${homeStyleCss}" rel="stylesheet"></link>
 </head>
 <body>

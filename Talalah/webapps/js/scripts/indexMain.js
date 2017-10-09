@@ -13,13 +13,24 @@ requirejs.config({
         text				: 'lib/text',
         css					: 'lib/css.min',
         simpleZoom			: 'lib/simpleZoom',
-        dateformat			:	'lib/dateformat',
+        dateformat			: 'lib/dateformat',
         bootstrapdatepicker	: 'lib/bootstrap-datetimepicker.min',
         moment				: 'lib/moment.min',
         'deep-model'		: 'lib/deep-model.min',
         backgrid			: 'lib/backgrid',
+        'jquery.colorbox'	: 'lib/jquery.colorbox-min',
+        // application user define library link
+        prototypeUrl		: 'scripts/lib/prototypeUrl',
+        userUrl				: 'scripts/lib/userUrl',
+        travelProductUrl	: 'scripts/lib/travelProductUrl',
+        shippingUrl			: 'scripts/lib/shippingUrl',
+        productUrl			: 'scripts/lib/productUrl',
+        orderUrl			: 'scripts/lib/orderUrl',
+        merchantUrl			: 'scripts/lib/merchantUrl',
+        itemProductUrl		: 'scripts/lib/itemProductUrl',
+        customerUrl			: 'scripts/lib/customerUrl',
         init				: 'scripts/lib/init',
-        // web application
+        // web application package
         model				: 'scripts/apps/index/model/indexModel',
         indexCoreApp		: 'scripts/apps/index/indexCoreApp',
         //view
@@ -41,12 +52,13 @@ requirejs.config({
         'product.search.page'	:	'scripts/apps/index/page/product.search.page',
         'cart.page'				:	'scripts/apps/index/page/cart.page',
         // template HTML
-        homeTemp			: '/Talalah/template/index/home.html',
-        homeComponentTemp	: '/Talalah/template/index/home_component.html',
-        productTempl		: '/Talalah/template/index/product/product.html',
+        homeTemp			  : '/Talalah/template/index/home.html',
+        homeComponentTemp	  : '/Talalah/template/index/home_component.html',
+        productTempl		  : '/Talalah/template/index/product/product.html',
         productComponentTempl : '/Talalah/template/index/product/product_component.html',
         theProductTemp		  : '/Talalah/template/index/product/the_product.html',
-        cartTempl			  : '/Talalah/template/index/cart/index.cart.html'
+        cartTempl			  : '/Talalah/template/index/cart/index.cart.html',
+        cartProductTempl	  : '/Talalah/template/index/cart/index.cart.product.html'
     },
     shim: {
         backbone: {

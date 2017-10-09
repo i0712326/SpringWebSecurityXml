@@ -96,14 +96,14 @@
 								$ <span id="cart-sum"> {{cart.sum}} </span> USD
 							</p>
 							<p style="text-align: right;">
-								<button class="btn btn-primary btn-sm" id="checkOut">
+								<span id="checkOutAllLoader" style="display:none;">
+									<img src="/Talalah/content/util/img/loader.gif">
+								</span>
+								<span id="checkOutAllOk" class="glyphicon glyphicon-ok" style="display:none;"></span>
+								<button class="btn btn-primary btn-sm" id="checkOutAll">
 									<span class="glyphicon glyphicon-check"></span>
 									checkout
 								</button>
-								<span id="checkOutLoader" style="display:none;">
-									<img src="/Talalah/content/util/img/loader.gif">
-								</span>
-								<span class="glyphicon glyphicon-success" style="display:none;"></span>
 							</p>
 						</div>
 					</div>

@@ -16,6 +16,25 @@ define(function(require,exports,module){
 			var customer		= new Model.Customer({id:id});
 			var historyPanelView  = new View.HistoryPanelView({model:customer});
 			var $ele = historyPanelView.render();
+			var orders = new Model.Orders();
+			orders.url = talalah.com.client.app.entity.order.order.get+"/customer/"+id;
+			
+			orders.fetch({
+				success : function(items, resp, opts){
+					var total = 0;
+					var sum = 0;
+					_.each(items.models, function(item){
+						var data = item.toJSON();
+						total += data.num;
+						sum += data.total;
+					},items);
+					
+					
+					$ele.find('#histPrice').text(sum);
+					$ele.find('#histNum').text(total);
+				}
+			});
+			
 			customer.fetch({
 				success : function(item,resp,opt){
 					historyPanelView.model = item;
@@ -32,6 +51,7 @@ define(function(require,exports,module){
 					});
 				}
 			});
+			
 			return $ele;
 		}
 		

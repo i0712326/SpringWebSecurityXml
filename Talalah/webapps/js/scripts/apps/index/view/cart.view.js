@@ -13,10 +13,20 @@ define(function(require,exports,module){
 	var talalah = init.init();
 	
 	var CartTempl	=	require('text!cartTempl');
+	var CartProductTempl	= require('text!cartProductTempl');
 	
 	var $cartTempl 			= $(CartTempl).find('#cart-panel').html();
 	var $cartTravelTempl	= $(CartTempl).find('#cartTravel').html();
 	var $cartItemTempl		= $(CartTempl).find('#cartItem').html();
+	
+	var $cartProductTemp = $(CartProductTempl).find('#cartProduct').html();
+	
+	var $productTravelTemp = $(CartProductTempl).find("#travel-detail").html();
+	var $productItemTemp = $(CartProductTempl).find('#item-detail').html();
+	
+	var $itemShippingProviderTemp =$(CartProductTempl).find('#itemshippingprovider').html();
+	//var $cartRelatedPrdTemp = $(CartProductTempl).find('#relatedPrd').html();
+	//var $cartCommentTemp = $(CartProductTempl).find('#comment').html();
 	
 	var content = talalah.com.client.app.page.content.merchant;
 	
@@ -43,8 +53,8 @@ define(function(require,exports,module){
 			return this.$el;
 		},
 		events : {
-			'click #delete' : 'doDelete',
-			'click #checkout' : 'doCheckOut'
+			'click #delete' 	: 'doDelete',
+			'click #checkout'   : 'doCheckOut'
 		},
 		doDelete : function(e){
 			e.preventDefault();
@@ -70,7 +80,7 @@ define(function(require,exports,module){
 			return this.$el;
 		},
 		events : {
-			'click #delete' : 'doDelete',
+			'click #delete'   : 'doDelete',
 			'click #checkout' : 'doCheckOut'
 		},
 		doDelete : function(e){
@@ -103,11 +113,92 @@ define(function(require,exports,module){
 		}
 	});
 	
+	
+	var CartProductView = Backbone.View.extend({
+		initialize : function(){
+			this.page = 1;
+			/*_.bindAll(this, "render");
+		    this.model.bind('change', this.render);*/
+		},
+		className:'container',
+		template : Handlebars.compile($cartProductTemp),
+		render : function(){
+			var data = this.model.toJSON();
+			this.$el.html(this.template(data));
+			return this.$el;
+		},
+		events:{
+			'click #loadmore'	: 'doLoadMore',
+			'click #checkout'	: 'doCheckOut'
+		},
+		doLoadMore : function(e){
+			e.preventDefault();
+			alert('Hello work')
+			/*customerCartController.doLoadMoreComments(this);
+			this.page++;*/
+		},
+		doCheckOut : function(e){
+			e.preventDefault();
+			//.checkOutProduct(this);
+			alert('check out');
+		}
+	});
+	
+	var ItemShippingProviderView = Backbone.View.extend({
+		className : 'col-xs-12 col-sm-12 col-lg-12',
+		template : Handlebars.compile($itemShippingProviderTemp),
+		render:function(pvdId){
+			var data = this.model.toJSON();
+			var id = data.shippingProvider.id;
+			this.$el.html(this.template(this.model.toJSON()));
+			if(id===pvdId){
+				this.$el.find('input[type=radio]').attr('checked', 'checked');
+			}
+			return this.$el;
+		}
+	}) ;
+	
+	var ItemShippingProviderViews = Backbone.View.extend({
+		tagName:'form',
+		render : function(pvdId){
+			_.each(this.collection.models, function(item){
+				var itemShippingProviderView = new ItemShippingProviderView({model:item});
+				this.$el.append(itemShippingProviderView.render(pvdId));
+			},this);
+			return this.$el;
+		}
+	});
+	
+	var ProductItemDetailView = Backbone.View.extend({
+		className : 'col-lg-12 col-xs-12 col-sm-12',
+		template : Handlebars.compile($productItemTemp),
+		render : function(){
+			var data = this.model.toJSON();
+			this.$el.html(this.template(data));
+			return this.$el;
+		}
+	});
+	
+	var ProductTravelDetailView = Backbone.View.extend({
+		className : 'col-lg-12 col-xs-12 col-sm-12',
+		template : Handlebars.compile($productTravelTemp),
+		render : function(){
+			var data = this.model.toJSON();
+			this.$el.html(this.template(data));
+			return this.$el;
+		}
+	});
+	
 	return {
-		CartView 		: CartView,
-		CartTravelView 	: CartTravelView,
-		CartItemView	: CartItemView,
-		CartProductViews : CartProductViews
+		CartView 		 : CartView,
+		CartTravelView 	 : CartTravelView,
+		CartItemView	 : CartItemView,
+		CartProductViews : CartProductViews,
+		CartProductView  : CartProductView,
+		ItemShippingProviderView  : ItemShippingProviderView,
+		ItemShippingProviderViews : ItemShippingProviderViews,
+		ProductItemDetailView	  : ProductItemDetailView,
+		ProductTravelDetailView	  : ProductTravelDetailView
 	};
 	
 });

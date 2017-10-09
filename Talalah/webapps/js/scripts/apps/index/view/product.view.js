@@ -8,6 +8,7 @@ define(function(require,exports,module){
 	var Handlebars 		= require('handlebars');
 	var datetimepicker  = require('bootstrapdatepicker');
 	var Backgrid		= require('backgrid');
+	var colorbox		= require('jquery.colorbox');
 	var Model			= require('model');
 	var init 			= require('init');
 	var event			= require('product.event');
@@ -62,6 +63,8 @@ define(function(require,exports,module){
 				var img = data.picName;
 				var path = contentMerchant+'/'+mcc+'/'+mcId+'/'+id+'/'+id+'/'+img;
 				this.$el.find('img').attr('src',path);
+				this.$el.find('a').attr('href',path);
+				this.$el.find('.group03').colorbox({rel:'group03', transition:"none", width:"75%", height:"75%"});
 			}
 			return this.$el;
 		}

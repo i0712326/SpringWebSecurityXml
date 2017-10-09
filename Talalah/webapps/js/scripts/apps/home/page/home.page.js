@@ -9,6 +9,7 @@ define(function(require,exports,module){
 	var init	= require('init');
 	
 	var talalah	= init.init();
+	var content = talalah.com.client.app.page.content.util;
 	
 	var HomePage	=	function(){
 		
@@ -19,11 +20,11 @@ define(function(require,exports,module){
 			
 			var nextSlideButtonModel = new Model.SlideButtonModel({lbBtn1:'right',lbBtn2:'next', lbBtn3:'icon-next', lbBtn4:'Next'});
 			
-			var slideShow0 = new Model.SlideShow({num:0,path:'/Talalah/content/util/img/1800x500.png',name:'image01'});
-			var slideShow1 = new Model.SlideShow({num:1,path:'/Talalah/content/util/img/1800x500.png',name:'image02'});
-			var slideShow2 = new Model.SlideShow({num:2,path:'/Talalah/content/util/img/1800x500.png',name:'image03'});
-			var slideShow3 = new Model.SlideShow({num:1,path:'/Talalah/content/util/img/1800x500.png',name:'image04'});
-			var slideShow4 = new Model.SlideShow({num:2,path:'/Talalah/content/util/img/1800x500.png',name:'image05'});
+			var slideShow0 = new Model.SlideShow({num:0,path:content+'/img/1800x500.png',name:'image01'});
+			var slideShow1 = new Model.SlideShow({num:1,path:content+'/img/1800x500.png',name:'image02'});
+			var slideShow2 = new Model.SlideShow({num:2,path:content+'/img/1800x500.png',name:'image03'});
+			var slideShow3 = new Model.SlideShow({num:1,path:content+'/img/1800x500.png',name:'image04'});
+			var slideShow4 = new Model.SlideShow({num:2,path:content+'/img/1800x500.png',name:'image05'});
 			
 			var slideShows = new Model.SlideShows();
 			slideShows.add(slideShow0);

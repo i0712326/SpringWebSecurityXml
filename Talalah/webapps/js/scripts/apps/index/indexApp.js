@@ -56,6 +56,7 @@ define(function(require,exports,module){
 			'Home/Product/:mcc'					: 'getProductMcc',
 			'Search/Product/:keyVal'			: 'searchProduct',
 			'ShoppingCart/View'					: 'viewCart',
+			'ShoppingCart/View/:id'				: 'viewCartProduct',
 			'ShoppingCart/RemoveItem/:index'	: 'removeItem'
 		},
 		index : function() {
@@ -108,6 +109,10 @@ define(function(require,exports,module){
 		viewCart:function(){
 			$('#pageContent').empty();
 			$('#pageContent').append(app.showCartPage());
+		},
+		viewCartProduct : function(id){
+			$('#pageContent').empty();
+			$('#pageContent').append(app.showCartProductPage(id));
 		},
 		removeItem : function(index){
 			$('#pageContent').empty();

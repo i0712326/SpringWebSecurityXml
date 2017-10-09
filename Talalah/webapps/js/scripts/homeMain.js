@@ -20,8 +20,19 @@ requirejs.config({
         lunr				:	'lib/lunr.min',
         bootstrapdatepicker	:	'lib/bootstrap-datetimepicker.min',
         moment				:	'lib/moment.min',
-        init				:	'scripts/lib/init',
-        model				:	'scripts/apps/home/model/homeModel',
+        'jquery.colorbox'	:	'lib/jquery.colorbox-min',
+        // application user define library link
+        prototypeUrl		: 'scripts/lib/prototypeUrl',
+        userUrl				: 'scripts/lib/userUrl',
+        travelProductUrl	: 'scripts/lib/travelProductUrl',
+        shippingUrl			: 'scripts/lib/shippingUrl',
+        productUrl			: 'scripts/lib/productUrl',
+        orderUrl			: 'scripts/lib/orderUrl',
+        merchantUrl			: 'scripts/lib/merchantUrl',
+        itemProductUrl		: 'scripts/lib/itemProductUrl',
+        customerUrl			: 'scripts/lib/customerUrl',
+        init				: 'scripts/lib/init',
+        model				: 'scripts/apps/home/model/homeModel',
         
         // application event handler
         controller			: 	'scripts/apps/home/controller/homeController',

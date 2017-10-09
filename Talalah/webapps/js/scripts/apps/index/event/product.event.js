@@ -292,7 +292,7 @@ define(function(require, exports,module){
 					var check = checkStart && checkEnd && checkAdult && checkChild;
 					
 					if(check===true){
-						var total = (oAdult+oChild)*price*days;
+						var total = oAdult*price+oChild*price*0.4;
 						setTimeout(function(){
 							that.$el.find('#total').text(total);
 							that.$el.find('#action').show();
@@ -328,8 +328,13 @@ define(function(require, exports,module){
 					var date = new Date();
 					var formattedDate = moment(date).format('YYYY-MM-DD');
 					var cpid = Math.floor(Math.random()*16777215).toString(16).toUpperCase();
+					var oStart 	= new Date(that.$el.find('#startVal').val().trim());
+					var oEnd 	= new Date(that.$el.find('#endVal').val().trim());
+					var oAdult 	= parseInt(that.$el.find('#adult').val().trim());
+					var oChild 	= parseInt(that.$el.find('#child').val().trim());
+					var days   	= parseInt(that.$el.find('#days').val().trim());
 					var type = "com.emc.app.entity.customer.CartTravel";
-					var cartProduct = {id:cpid, qty:qty, price : price, cart:cart, product:product, type:type};
+					var cartProduct = {id:cpid, qty:qty, price : price, cart:cart, product:product, type:type, date:formattedDate,days:days,start:oStart, end : oEnd, adult:oAdult,child :oChild, note:''};
 					
 					that.$el.find('#addCartLoader').show();
 					
@@ -371,8 +376,9 @@ define(function(require, exports,module){
 					$('.badge').text(num);
 					$('#total').text(num);
 					$('#sum').text(total);
-					if(num===0){
+					if(num===0) {
 						$('#empty-info').show();
+						$('#checkOutAll').prop('disabled',true);
 					}
 					// remove view
 					that.remove();

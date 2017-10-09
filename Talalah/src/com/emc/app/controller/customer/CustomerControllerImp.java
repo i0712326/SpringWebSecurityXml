@@ -6,6 +6,9 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.emc.app.controller.admin.MimeTypes;
 import com.emc.app.controller.util.ContentFileUpload;
 import com.emc.app.controller.util.ContentFileUploadImp;
 import com.emc.app.entity.Entity;
@@ -31,7 +33,7 @@ public class CustomerControllerImp implements CustomerController {
 	
 	@RequestMapping(value="/upload/img",method=RequestMethod.POST)
 	@ResponseBody @Override
-	public ResponseEntity<Entity> upload(@RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+	public ResponseEntity<Entity> upload(@RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) throws IOException, MimeTypeException {
 		String urlRoot = context.getInitParameter("com.talalah.web.service.engine").trim();
 		
 		// upload file to server
@@ -44,8 +46,10 @@ public class CustomerControllerImp implements CustomerController {
 		Customer customer = custResp.getBody();
 		
 		String contentType = multipartFile.getContentType();
-		String ext = MimeTypes.getMimeTypeExt(contentType);
-		String fileName = id+"."+ext;
+		MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+		MimeType extention = allTypes.forName(contentType);
+		String ext = extention.getExtension();
+		String fileName = id+ext;
 		customer.setImg(fileName);
 		
 		url = urlRoot+"/customer/update/"+id;

@@ -41,6 +41,9 @@ define(function(require,exports,module){
 			showCartPage : function(){
 				return cartPage.showCart();
 			},
+			showCartProductPage : function(id){
+				return cartPage.showCartProduct(id);
+			},
 			showContact : function(){
 				return null;
 			}

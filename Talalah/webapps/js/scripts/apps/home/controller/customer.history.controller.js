@@ -117,8 +117,8 @@ define(function(require, exports, module){
 					newModel.url = talalah.com.client.app.entity.order.orderProduct.remove+"/"+id;
 					newModel.destroy({
 						success : function(item,resp,opt){
-							that.remove();
 							$('.alert-success').show();
+							that.remove();
 						},
 						error : function(item,resp,opt){
 							$('.alert-error').show();

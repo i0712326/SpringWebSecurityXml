@@ -13,17 +13,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="Phoudthavong Thephanonexay">
-<title>LaosTalalah</title>
+<title>Talalah Merchant</title>
 <spring:url value="${customer.id}" var="custId"/>
 <spring:url value="${customer.cart.id}" var="cartId"/>
 <spring:url value="../" var="path"></spring:url>
 <spring:url value="${path }css/bootstrap.min.css" var="bootstrapCss"></spring:url>
 <spring:url value="${path }/css/bootstrap-datetimepicker.min.css" var="bootstrapDatepickerCss"></spring:url>
 <spring:url value="${path }/css/home_style.css" var="homeStyleCss"></spring:url>
-<link rel="home icon" href="${path }/css/img/tm/tm16x16.ico" type="image/ico"></link>
 <link href="${bootstrapCss}" rel="stylesheet"></link>
 <link href="${bootstrapDatepickerCss}" rel="stylesheet"></link>
 <link href="${homeStyleCss}" rel="stylesheet"></link>
+<link rel="home icon" href="${path}/css/img/tm/tm16x16.ico" type="image/ico"></link>
 </head>
 <body>
 	<!-- Navigation -->

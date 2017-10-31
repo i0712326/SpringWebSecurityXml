@@ -9,7 +9,7 @@
   <packaging>war</packaging>
   
   <properties>
-  	<spring.version>3.2.3.RELEASE</spring.version>
+  	<spring.version>3.2.18.RELEASE</spring.version>
 	<spring.security.version>3.2.3.RELEASE</spring.security.version>
 	<jstl.version>1.2</jstl.version>
 	<jackson.version>1.9.13</jackson.version>
@@ -24,9 +24,9 @@
 	
 	<httpclient.version>4.3.6</httpclient.version>
 	
-	<maven-compiler-plugin>3.6.1</maven-compiler-plugin>
-  	<maven-war-plugin>3.0.0</maven-war-plugin>
-  	<jdk.version>1.8</jdk.version>
+	<maven-compiler-plugin>3.1</maven-compiler-plugin>
+  	<maven-war-plugin>2.4</maven-war-plugin>
+  	<jdk.version>1.7</jdk.version>
   	
   </properties>
   
@@ -183,7 +183,6 @@
 		<version>${httpclient.version}</version>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
 	<dependency>
 	    <groupId>org.apache.tika</groupId>
 	    <artifactId>tika-core</artifactId>
@@ -194,6 +193,15 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+    
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

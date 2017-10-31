@@ -108,6 +108,7 @@
 }
 </style>
 <title>Talalah Merchant</title>
+<link rel="home icon" href="css/img/tm/tm16x16.ico" type="image/ico">
 </head>
 <body>
 	<div class="login-page">

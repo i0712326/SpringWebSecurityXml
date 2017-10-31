@@ -14,7 +14,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="Phoudthavong Thephanonexay">
-<title>LaosTalalah</title>
 <spring:url value="../../" var="path"/>
 <spring:url value="${path}css/bootstrap.min.css" var="bootStrapCss"/>
 <spring:url value="${path}css/bootstrap-datetimepicker.min.css" var="bootStrapDatetimePicker"/>
@@ -23,6 +22,8 @@
 <link href="${bootStrapCss}" rel="stylesheet"></link>
 <link href="${bootStrapDatetimePicker}" rel="stylesheet"></link>
 <link href="${merchantStyleCss}" rel="stylesheet"></link>
+<link rel="home icon" href="${path}/css/img/tm/tm16x16.ico" type="image/ico"></link>
+<title>Talalah Merchant</title>
 </head>
 <body>
 	<!-- header navigation -->

@@ -14,6 +14,9 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.Logger;
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.emc.app.controller.admin.MimeTypes;
 import com.emc.app.controller.util.ContentFileUpload;
 import com.emc.app.entity.Entity;
 import com.emc.app.entity.product.Product;
@@ -46,7 +48,7 @@ public class ProductControllerImp implements ProductController {
 	
 	@RequestMapping(value="/upload/img",method=RequestMethod.POST)
 	@ResponseBody @Override
-	public ResponseEntity<Entity> uploadImg(@RequestParam("mcc") String mcc, @RequestParam("mcId") String mcId, @RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) {
+	public ResponseEntity<Entity> uploadImg(@RequestParam("mcc") String mcc, @RequestParam("mcId") String mcId, @RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 		
 		HashMap<String, String> hashMap = new HashMap<String,String>();
 		hashMap.put("mcc", mcc);
@@ -61,7 +63,7 @@ public class ProductControllerImp implements ProductController {
 		return new ResponseEntity<Entity>(entity,HttpStatus.OK);
 	}
 	
-	private void updatePrdImgName(String id, MultipartFile multipartFile){
+	private void updatePrdImgName(String id, MultipartFile multipartFile) throws MimeTypeException{
 		String rootUrl = servletContext.getInitParameter("com.talalah.web.service.engine").trim();
 		String url = rootUrl+"/product/get/{id}";
 		
@@ -70,8 +72,10 @@ public class ProductControllerImp implements ProductController {
 		ResponseEntity<Product> resp = restTemplate.getForEntity(url, Product.class, params);
 		Product product = resp.getBody();
 		String contentType = multipartFile.getContentType();
-		String ext = MimeTypes.getMimeTypeExt(contentType);
-		String img = id+"."+ext;
+		MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+		MimeType extention = allTypes.forName(contentType);
+		String ext = extention.getExtension();
+		String img = id+ext;
 		product.setImg(img);
 		url = rootUrl+"/product/update/*";
 		restTemplate.put(url, product);
@@ -91,10 +95,12 @@ public class ProductControllerImp implements ProductController {
 	@Override
 	public ResponseEntity<ProductImg> uploadRelateImg(
 			@RequestParam("mcc") String mcc, @RequestParam("mcId") String mcId,
-			@RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) {
+			@RequestParam("id") String id, @RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 			
 			String contentType = multipartFile.getContentType();
-			String ext = MimeTypes.getMimeTypeExt(contentType);
+			MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+			MimeType type = allTypes.forName(contentType);
+			String ext = type.getExtension();
 			
 			SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
 			String formattedDate = format.format(new Date());
@@ -109,7 +115,7 @@ public class ProductControllerImp implements ProductController {
 			Product product = resp.getBody();
 			
 			ProductImg prdImg = new ProductImg();
-			prdImg.setPicName(name+ "."+ext);
+			prdImg.setPicName(name+ext);
 			prdImg.setProduct(product);
 			
 			// persist related image of product
@@ -197,6 +203,7 @@ public class ProductControllerImp implements ProductController {
 		
 		ResponseEntity<Entity> resp = restTemplate.postForEntity(url, itemImgs, Entity.class);
 		Entity entity = resp.getBody();
+		
 		return new ResponseEntity<Entity>(entity,HttpStatus.OK);
 	}
 	

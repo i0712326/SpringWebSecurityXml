@@ -7,6 +7,9 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.emc.app.controller.admin.MimeTypes;
 import com.emc.app.entity.Entity;
 
 
@@ -28,11 +30,10 @@ public class ContentManagementImp implements ContentManagement {
 	private ServletContext servletContext;
 
 	@RequestMapping(value="/productImg", method=RequestMethod.POST)
-	@Override
 	public ResponseEntity<Entity> uploadPrdImg(
 			@RequestParam("mcc") String mcc,
 			@RequestParam("mcId") String mcId, @RequestParam("id") String prdId,
-			@RequestParam("file") MultipartFile multipartFile) {
+			@RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 		String contentPath = servletContext.getRealPath("/content/merchant");
 		try {
 			File filePath01 = new File(contentPath +"/"+mcc);
@@ -43,8 +44,10 @@ public class ContentManagementImp implements ContentManagement {
 			if(!filePath03.exists()) filePath03.mkdir();
 			
 			String contentType = multipartFile.getContentType();
-			String ext = MimeTypes.getMimeTypeExt(contentType);
-			String fname = prdId+"."+ext;
+			MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+			MimeType extention = allTypes.forName(contentType);
+			String ext = extention.getExtension();
+			String fname = prdId+ext;
 			
 			String filePath = contentPath +"/"+mcc+"/"+mcId+"/"+prdId+"/"+fname;
 			
@@ -62,13 +65,11 @@ public class ContentManagementImp implements ContentManagement {
 	}
 	
 	@RequestMapping(value="/productRelateimg", method=RequestMethod.POST)
-	@Override
 	public ResponseEntity<Entity> uploadPrdRelImg(
 			@RequestParam("name") String name, @RequestParam("mcc") String mcc, @RequestParam("mcId") String mcId, 
-			@RequestParam("prdId") String prdId, @RequestParam("file") MultipartFile multipartFile) {
+			@RequestParam("prdId") String prdId, @RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 		String contentPath = servletContext.getRealPath("/content/merchant");
 		try {
-			
 			String path01 = contentPath + "/" +mcc;
 			File dirPath01 = new File(path01);
 			if(!dirPath01.exists()) dirPath01.mkdir();
@@ -83,9 +84,11 @@ public class ContentManagementImp implements ContentManagement {
 			if(!dirPath04.exists()) dirPath04.mkdir();
 			
 			String contentType = multipartFile.getContentType();
-			String ext = MimeTypes.getMimeTypeExt(contentType);
+			MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+			MimeType extention = allTypes.forName(contentType);
+			String ext = extention.getExtension();
 			
-			String fname = name+"."+ext;
+			String fname = name+ext;
 			
 			String filePath = dirPath04+"/"+fname;
 			
@@ -105,19 +108,19 @@ public class ContentManagementImp implements ContentManagement {
 
 	
 	@RequestMapping(value="/userImg", method=RequestMethod.POST)
-	@Override
 	public ResponseEntity<Entity> uploadUsrImg(
 			@RequestParam("usrId") String usrId,
-			@RequestParam("file") MultipartFile multipartFile) {
+			@RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 		String contentPath = servletContext.getRealPath("/content");
 		try {
 			String dirPath = contentPath + "/user/" + usrId;
 			File dir = new File(dirPath);
-			if (!dir.exists())
-				dir.mkdir();
-			String type = multipartFile.getContentType();
-			String ext = MimeTypes.getMimeTypeExt(type);
-			String filePath = dirPath + "/" + usrId + "." + ext;
+			if (!dir.exists()) dir.mkdir();
+			String contentType = multipartFile.getContentType();
+			MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+			MimeType extention = allTypes.forName(contentType);
+			String ext = extention.getExtension();
+			String filePath = dirPath + "/" + usrId + ext;
 			File file = new File(filePath);
 
 			byte[] bytes;
@@ -125,7 +128,7 @@ public class ContentManagementImp implements ContentManagement {
 			FileUtils.writeByteArrayToFile(file, bytes);
 			
 			// update image name in database
-			String img = usrId+"."+ext;
+			String img = usrId+ext;
 			
 			
 			return new ResponseEntity<Entity>(HttpStatus.OK);
@@ -137,9 +140,8 @@ public class ContentManagementImp implements ContentManagement {
 	}
 
 	@RequestMapping(value="/merchantImg", method=RequestMethod.POST)
-	@Override
 	public ResponseEntity<Entity> uploadMcImg(@RequestParam("mcc") String mcc, @RequestParam("mcId") String mcId,
-			@RequestParam("file") MultipartFile multipartFile) {
+			@RequestParam("file") MultipartFile multipartFile) throws MimeTypeException {
 		String contentPath = servletContext.getRealPath("/content");
 		String path01 = contentPath+ "/merchant/" +mcc;
 		File dirPath01 = new File(path01);
@@ -147,9 +149,12 @@ public class ContentManagementImp implements ContentManagement {
 		String path02 = path01 + "/" + mcId;
 		File dirPath02 = new File(path02);
 		if (!dirPath02.exists()) dirPath02.mkdirs();
-		String type = multipartFile.getContentType();
-		String ext = MimeTypes.getMimeTypeExt(type);
-		String fileName = path02 + "/" + mcId + "." + ext;
+		String contentType = multipartFile.getContentType();
+		MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+		MimeType extention = allTypes.forName(contentType);
+		String ext = extention.getExtension();
+		
+		String fileName = path02 + "/" + mcId + ext;
 		File file = new File(fileName);
 		byte[] bytes;
 		try {

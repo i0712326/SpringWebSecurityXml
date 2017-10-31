@@ -600,6 +600,9 @@ define(function(require,exports,module){
 					var price 	= $(ele).find('input[name=price]').val().trim();
 					var max 	= $(ele).find('input[name=max]').val().trim();
 					var min 	= $(ele).find('input[name=min]').val().trim();
+					
+					if(pId==="")
+						pId = $('input[name=id]').val();	
 					prdId		= pId;
 					var type = "com.emc.app.entity.product.item.Item";
 					var ispvdId = {item:{id:pId,type:type},shippingProvider:{id:id,name:name}};

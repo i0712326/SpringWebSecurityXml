@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.emc.app</groupId>
   <artifactId>TalalahContents</artifactId>
@@ -24,10 +27,10 @@
 	
 	<httpclient.version>4.3.6</httpclient.version>
 	
-	<maven-compiler-plugin>3.5.0</maven-compiler-plugin>
-  	<maven-war-plugin>3.0.0</maven-war-plugin>
+	<maven-compiler-plugin>3.1</maven-compiler-plugin>
+  	<maven-war-plugin>2.4</maven-war-plugin>
   	
-  	<jdk.version>1.8</jdk.version>
+  	<jdk.version>1.7</jdk.version>
   	
   </properties>
   
@@ -164,12 +167,30 @@
 	    <artifactId>commons-lang</artifactId>
 	    <version>2.6</version>
 	</dependency>
-  
+  	
+  	<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+	<dependency>
+	    <groupId>org.apache.tika</groupId>
+	    <artifactId>tika-core</artifactId>
+	    <version>1.13</version>
+	</dependency>
+
+	
   </dependencies>
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    
     <plugins>
+      
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin}</version>
@@ -178,13 +199,16 @@
           <target>${jdk.version}</target>
         </configuration>
       </plugin>
+    
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>${maven-war-plugin}</version>
         <configuration>
           <warSourceDirectory>webapps</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+      
     </plugins>
   </build>
 </project>

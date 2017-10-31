@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 30, 2017 9:12:09 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+ <class name="com.spring.web.security.entity.Authority" table="authtbl">
+  <id column="authid" name="id" type="int">
+   <generator class="increment"/>
+  </id>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="authname"/>
+  </property>
+  <set lazy="true" name="users" sort="unsorted" table="usrtbl_has_authtbl">
+   <key>
+    <column name="authtbl_authid"/>
+   </key>
+   <many-to-many class="com.spring.web.security.entity.User"
+    column="usrtbl_usrid" unique="false"/>
+  </set>
+ </class>
+</hibernate-mapping>

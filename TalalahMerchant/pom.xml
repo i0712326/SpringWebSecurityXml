@@ -25,10 +25,10 @@
 	<spring.test.version>4.3.3.RELEASE</spring.test.version>
 	
 	<jackson2.version>2.7.3</jackson2.version>
-	<jdk.version>1.8</jdk.version>
+	<jdk.version>1.7</jdk.version>
 	
-	<maven-compiler-plugin>3.5.0</maven-compiler-plugin>
-  	<maven-war-plugin>3.0.0</maven-war-plugin>
+	<maven-compiler-plugin>3.1</maven-compiler-plugin>
+  	<maven-war-plugin>2.4</maven-war-plugin>
   	
   </properties>
   
@@ -192,6 +192,13 @@
 	    <version>4.4</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
+	<dependency>
+	    <groupId>org.apache.tika</groupId>
+	    <artifactId>tika-core</artifactId>
+	    <version>1.13</version>
+	</dependency>
+	
   </dependencies>
   
   <build>
@@ -204,7 +211,9 @@
         </excludes>
       </resource>
     </resources>
+    
     <plugins>
+      
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin}</version>
@@ -213,13 +222,17 @@
           <target>${jdk.version}</target>
         </configuration>
       </plugin>
+    
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>${maven-war-plugin}</version>
         <configuration>
           <warSourceDirectory>webapps</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+      
     </plugins>
+    
   </build>
 </project>

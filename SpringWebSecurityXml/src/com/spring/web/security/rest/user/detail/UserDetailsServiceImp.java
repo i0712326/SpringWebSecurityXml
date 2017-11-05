@@ -1,4 +1,4 @@
-package com.spring.web.security.rest;
+package com.spring.web.security.rest.user.detail;
 
 import java.util.ArrayList;
 import java.util.HashSet;

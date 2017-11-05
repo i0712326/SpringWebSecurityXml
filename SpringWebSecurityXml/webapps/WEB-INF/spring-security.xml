@@ -13,7 +13,7 @@
 	
 	<http entry-point-ref="authEntityPoint">
 		<custom-filter before="HEADERS_FILTER" ref="customFilter"/>
-		<intercept-url pattern="/protected/user/**" access="ROLE_USER"/>
+		<intercept-url pattern="/protected/user/**" access="ROLE_USER,ROLE_ADMIN"/>
 		<intercept-url pattern="/protected/admin/**" access="ROLE_ADMIN"/>
 	</http>
 
@@ -38,7 +38,7 @@
 	
 	<beans:bean id="authEntityPoint" class="com.spring.web.security.rest.AuthEntityPoint"/>
 	
-	<beans:bean id="userDetailsService" class="com.spring.web.security.rest.UserDetailsServiceImp">
+	<beans:bean id="userDetailsService" class="com.spring.web.security.rest.user.detail.UserDetailsServiceImp">
 		<beans:property name="userService" ref="userService"/>
 	</beans:bean>
 	
